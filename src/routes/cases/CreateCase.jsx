@@ -153,7 +153,7 @@ const CreateCase = () => {
     try {
       const formData = new FormData();
       if (!caseId) {
-        toast.error("please enter  case id", {
+        toast.error("Please enter  case id", {
           autoClose: 2000,
           pauseOnHover: true,
           draggable: true,
@@ -167,28 +167,28 @@ const CreateCase = () => {
         });
       }
       else if (!age) {
-        toast.error("please enter patient  age", {
+        toast.error("Please enter patient  age", {
           autoClose: 2000,
           pauseOnHover: true,
           draggable: true,
         });
       }
       else if (patientLocation == 'local' && !extraction) {
-        toast.error("please select extraction", {
+        toast.error("Please select extraction", {
           autoClose: 2000,
           pauseOnHover: true,
           draggable: true,
         });
       }
       else if (patientLocation == 'local' && !ipr) {
-        toast.error("please select ipr", {
+        toast.error("Please select ipr", {
           autoClose: 2000,
           pauseOnHover: true,
           draggable: true,
         });
       }
       else if (patientLocation == 'local' && !attachments) {
-        toast.error("please  select  attachments", {
+        toast.error("Please  select  attachments", {
           autoClose: 2000,
           pauseOnHover: true,
           draggable: true,
@@ -196,21 +196,28 @@ const CreateCase = () => {
       }
 
       else if (!treatmentPlan) {
-        toast.error("please enter select  treatmentPlan", {
+        toast.error("Please enter select  treatmentPlan", {
           autoClose: 2000,
           pauseOnHover: true,
           draggable: true,
         });
       }
       else if (!upperStl) {
-        toast.error("please upload upper stl file", {
+        toast.error("Please upload upper stl file", {
           autoClose: 2000,
           pauseOnHover: true,
           draggable: true,
         });
       }
       else if (!lowerStl) {
-        toast.error("please upload upper lower file", {
+        toast.error("Please upload upper lower file", {
+          autoClose: 2000,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      }
+      else if (!software) {
+        toast.error("Please select software", {
           autoClose: 2000,
           pauseOnHover: true,
           draggable: true,

@@ -351,6 +351,10 @@ const Sidebar = () => {
           <Link className={`${tab == 'completed' ? 'active' : ''}`} onClick={() => setTab('completed')} to={'/completed-cases'}> <div className="icon"><CiMedicalCase /></div>  Completed cases</Link>
         </li>}
 
+        {permissions?.includes('external-cases-list') && <li>
+          <Link className={`${tab == 'external-cases' ? 'active' : ''}`} onClick={() => setTab('external-cases')} to={'/external-cases'}> <div className="icon"><CiMedicalCase /></div>  External Cases</Link>
+        </li>}
+
         {permissions?.includes('sub-client-list') && <li>
           <Link className={`${tab == 'subclients' ? 'active' : ''}`} onClick={() => setTab('subclients')} to={'/sub-clients'}> <div className="icon"><TbUsers /></div>  Sub clients</Link>
         </li>}
@@ -359,12 +363,10 @@ const Sidebar = () => {
           <Link className={`${tab == 'history' ? 'active' : ''}`} onClick={() => setTab('history')} to={'/history'}> <div className="icon"><GoHistory /></div>  History</Link>
         </li>
 
-        {
-        // permissions?.includes('softwares-list') && 
-        <li>
+        {permissions?.includes('softwares-list') && <li>
           <Link className={`${tab == 'softwares' ? 'active' : ''}`} onClick={() => setTab('softwares')} to={'/softwares'}> <div className="icon"><GoGlobe /></div>  Softwares</Link>
-        </li>
-        }
+        </li>}
+        
 
       </ul>
 

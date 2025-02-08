@@ -70,6 +70,11 @@ import Softwares from "./routes/softwares/Softwares"
 import AddSoftware from "./routes/softwares/AddSoftware";
 import UpdateSoftware from "./routes/softwares/UpdateSoftware";
 
+//External Patient Cases
+import ExternalCases from "./routes/external_cases/ExternalCases";
+import AddExternalCase from "./routes/external_cases/AddExternalCase";
+import UpdateExternalCase from "./routes/external_cases/UpdateExternalCase";
+
 function App() {
 
   const { currentUser } = useContext(AuthContext)
@@ -293,7 +298,21 @@ function App() {
         {
           path: "/update-software/:id",
           element: permissions?.includes('softwares-update') ? <UpdateSoftware /> : <NotAuthorized />
-        }
+        },
+
+        //External Patient Cases
+        {
+          path: "/external-cases",
+          element: permissions?.includes('external-cases-list') ? <ExternalCases /> : <NotAuthorized />
+        },
+        {
+          path: "/create-external-case",
+          element: permissions?.includes('external-cases-store') ? <AddExternalCase /> : <NotAuthorized />
+        },
+        {
+          path: "/update-external-case/:id",
+          element: permissions?.includes('external-cases-update') ? <UpdateExternalCase /> : <NotAuthorized />
+        },
       ]
     }
   ]);

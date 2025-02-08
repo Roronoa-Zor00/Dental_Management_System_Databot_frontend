@@ -77,7 +77,7 @@ const Softwares = () => {
 
       if (result?.data?.status == 200) {
 
-        toast.error(result?.data?.message, {
+        toast.success(result?.data?.message, {
           autoClose: 2000,
           pauseOnHover: true,
           draggable: true,
