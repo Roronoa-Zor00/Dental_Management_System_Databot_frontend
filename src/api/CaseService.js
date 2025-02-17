@@ -117,8 +117,8 @@ async function getHistoryList(current_page = 1, case_id = '', caseCompleted = ''
     return err
   }
 }
-//get all cases
 
+//get paginated cases
 async function getCases(current_page = 1, case_id = '', casestatus = '', patientNname = '', clinicName = '', dateFrom = '', dateTo = '', caseType = '', caseCompleted = '', isProrityCases = '', isModificationCases = '') {
   try {
     let AUTH_TOKEN = window.localStorage.getItem('token');
@@ -161,6 +161,48 @@ async function getCases(current_page = 1, case_id = '', casestatus = '', patient
   }
 }
 //get completed cases
+
+async function getAllCases(current_page = 1, case_id = '', casestatus = '', patientNname = '', clinicName = '', dateFrom = '', dateTo = '', caseType = '', caseCompleted = '', isProrityCases = '', isModificationCases = '') {
+  try {
+    let AUTH_TOKEN = window.localStorage.getItem('token');
+    const queryParams = new URLSearchParams();
+    if (case_id) queryParams.append('search', case_id);
+    if (casestatus) queryParams.append('status', casestatus);
+    if (patientNname) queryParams.append('patient_name', patientNname);
+    if (clinicName) queryParams.append('clinic_name', clinicName);
+    if (dateFrom) queryParams.append('date_from', dateFrom);
+    if (dateTo) queryParams.append('date_to', dateTo);
+    if (caseType) queryParams.append('case_type', caseType);
+    if (caseCompleted) queryParams.append('case_completed', caseCompleted);
+    if (isProrityCases) queryParams.append('is_prority_cases', isProrityCases);
+    if (isModificationCases) queryParams.append('is_modification_cases', isModificationCases);
+    //   if (dates && Array.isArray(dates) && dates.length === 2) {
+    //     queryParams.append('date_from_to', dates.join(',')); // Use a comma or any other delimiter
+    // }
+
+    var config = {
+      method: 'get',
+      url: `/patient_cases/export_cases?${queryParams}`,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        // "Content-Type": "multipart/form-data",
+        'Authorization': 'Bearer ' + AUTH_TOKEN
+      },
+      data: ''
+    };
+
+    return await axios(config)
+      .then(function (response) {
+        return response;
+      })
+      .catch(function (error) {
+        return error.response
+      });
+  } catch (err) {
+    return err
+  }
+}
 
 async function getCompletedCases() {
   try {
@@ -694,4 +736,4 @@ async function updateCaseWorkload(data) {
     return err
   }
 }
-export const CaseService = { updateCaseWorkload, createCase, updateCase, getHistoryList, getCases, getCompletedCases, getCaseDetail, deleteCase, createPendingApproval, updatePendingApproval, getPendingApprovals, getPendingApprovalDetail, deletePendingApproval, assignCase, createCasePlan, updateCasePlan, getCasePlan, getCasePlans, deleteCasePlan, updateCaseStatus, updateCaseToSubmission, getDashboardStats, isCaseAvailble }
+export const CaseService = { updateCaseWorkload, createCase, updateCase, getHistoryList, getCases, getAllCases, getCompletedCases, getCaseDetail, deleteCase, createPendingApproval, updatePendingApproval, getPendingApprovals, getPendingApprovalDetail, deletePendingApproval, assignCase, createCasePlan, updateCasePlan, getCasePlan, getCasePlans, deleteCasePlan, updateCaseStatus, updateCaseToSubmission, getDashboardStats, isCaseAvailble }
