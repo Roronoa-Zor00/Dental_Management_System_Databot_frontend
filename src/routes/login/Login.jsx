@@ -19,7 +19,7 @@ const Login = () => {
   const navigate = useNavigate()
   const loginApi = async (token) => {
 
-
+    
     try {
       const formData = new FormData()
 
@@ -52,8 +52,9 @@ const Login = () => {
         if (password) {
           formData.append('password', password)
         }
-
+        
         const result = await AuthService.login(formData);
+        console.log(result?.data);
         if (result?.data?.success == true) {
           localStorage.setItem("token", result?.data?.data?.user?.token)
           updateUser(result?.data?.data?.user);

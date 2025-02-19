@@ -178,7 +178,7 @@ const Cases = () => {
         planner: ''
         }];
 
-        setNonPaginatedData(transformedCases);
+        // setNonPaginatedData(transformedCases);
 
         console.log('No case found');
       }
@@ -194,7 +194,7 @@ const Cases = () => {
         planner: ''
       }];
 
-      setNonPaginatedData(transformedCases);
+      // setNonPaginatedData(transformedCases);
       console.log('Error getting cases', error);
     } finally {
       setLoading(false);

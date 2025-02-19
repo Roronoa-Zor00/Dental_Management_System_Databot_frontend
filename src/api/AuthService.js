@@ -16,13 +16,15 @@ async function login(data) {
       data: data
     };
 
-    return await axios(config)
-      .then(function (response) {
+    return await axios(config).then(
+      function (response) {
         return response;
-      })
-      .catch(function (error) {
+      }
+    ).catch(
+      function (error) {
         return error.response
-      });
+      }
+    );
   } catch (err) {
     return err.response
   }
