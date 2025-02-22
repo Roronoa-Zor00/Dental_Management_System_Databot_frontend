@@ -38,7 +38,7 @@ const UpdateCase = () => {
   const [lowerStl, setLowerStl] = useState(null);
   const [stlByteScan, setStlByteScan] = useState(null);
   const [progress, setProgress] = useState(0);
-  const [software, setSoftware] = useState(false);
+  const [software, setSoftware] = useState(null);
   const [softwareList, setSoftwareList] = useState([]);
   const api_url = process.env.REACT_APP_API_URL
 
@@ -209,6 +209,8 @@ const UpdateCase = () => {
 
   };
   const updateCaseFunction = async () => {
+
+    console.log(software);
     try {
       const formData = new FormData();
       if (!caseId) {
