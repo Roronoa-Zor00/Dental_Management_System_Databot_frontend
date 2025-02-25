@@ -169,13 +169,13 @@ const Cases = () => {
       } else {
         const transformedCases = [{
           caseId: '',
-        statusName: '',
-        name: '',
-        email: '',
-        gender: '',
-        created: '',
-        clinic: '',
-        planner: ''
+          statusName: '',
+          name: '',
+          email: '',
+          gender: '',
+          created: '',
+          clinic: '',
+          planner: ''
         }];
 
         // setNonPaginatedData(transformedCases);
@@ -271,7 +271,8 @@ const Cases = () => {
           draggable: true,
 
         });
-        getAllCases(1, caseid, casestatus, patientName, clinicName, dateFrom, dateTo, caseType, completed, isProrityCases, isModificationCases)
+        getAllCases(1, caseid, casestatus, patientName, clinicName, dateFrom, dateTo, caseType, completed, isProrityCases, isModificationCases);
+        getNonPaginatedCases(1, caseid, casestatus, patientName, clinicName, dateFrom, dateTo, caseType, completed, isProrityCases, isModificationCases);
       }
       else {
         if (result?.data?.message == "Unauthenticated.") {
@@ -386,8 +387,14 @@ const Cases = () => {
     if (e.key === 'Enter') {
       e.preventDefault();
       getAllCases();
+      getNonPaginatedCases();
     }
   };
+
+  const handleFilterClick = () => {
+    getAllCases();
+    getNonPaginatedCases();
+  }
 
 
 
@@ -463,7 +470,7 @@ const Cases = () => {
 
           </div>
 
-          <button className='button' onClick={getAllCases}>
+          <button className='button' onClick={handleFilterClick}>
             Filter
           </button>
         </div>

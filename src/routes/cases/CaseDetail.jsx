@@ -306,18 +306,18 @@ const CaseDetail = () => {
           setSoftware(software_list?.data?.data.name);
         }
       } else {
-        toast.error("No software data found!", {
-          autoClose: 2000,
-          pauseOnHover: true,
-          draggable: true,
-        });
+        // toast.error("No software data found!", {
+        //   autoClose: 2000,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        // });
       }
     } catch (error) {
-      toast.error("Unable to load software data!", {
-        autoClose: 2000,
-        pauseOnHover: true,
-        draggable: true,
-      });
+      // toast.error("Unable to load software data!", {
+      //   autoClose: 2000,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      // });
     }
   };
 

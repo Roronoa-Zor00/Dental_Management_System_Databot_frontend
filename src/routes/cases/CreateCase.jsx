@@ -216,13 +216,13 @@ const CreateCase = () => {
           draggable: true,
         });
       }
-      else if (!software) {
-        toast.error("Please select software", {
-          autoClose: 2000,
-          pauseOnHover: true,
-          draggable: true,
-        });
-      }
+      // else if (!software) {
+      //   toast.error("Please select software", {
+      //     autoClose: 2000,
+      //     pauseOnHover: true,
+      //     draggable: true,
+      //   });
+      // }
       else {
         setLoading(true);
         if (caseId) {

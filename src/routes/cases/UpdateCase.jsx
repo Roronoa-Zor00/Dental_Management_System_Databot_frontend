@@ -115,18 +115,18 @@ const UpdateCase = () => {
         if (software_list?.data?.data?.length > 0) {
           setSoftwareList(software_list.data.data);
         } else {
-          toast.error("No software data found!", {
-            autoClose: 2000,
-            pauseOnHover: true,
-            draggable: true,
-          });
+          // toast.error("No software data found!", {
+          //   autoClose: 2000,
+          //   pauseOnHover: true,
+          //   draggable: true,
+          // });
         }
       } catch (error) {
-        toast.error("Unable to load software data!", {
-          autoClose: 2000,
-          pauseOnHover: true,
-          draggable: true,
-        });
+        // toast.error("Unable to load software data!", {
+        //   autoClose: 2000,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        // });
       }
     };
 
@@ -227,13 +227,13 @@ const UpdateCase = () => {
           draggable: true,
         });
       }
-      else if (!software) {
-        toast.error("Please select software!", {
-          autoClose: 2000,
-          pauseOnHover: true,
-          draggable: true,
-        });
-      }
+      // else if (!software) {
+      //   toast.error("Please select software!", {
+      //     autoClose: 2000,
+      //     pauseOnHover: true,
+      //     draggable: true,
+      //   });
+      // }
 
       else {
         setLoading(true);
