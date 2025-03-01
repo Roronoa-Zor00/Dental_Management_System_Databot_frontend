@@ -807,310 +807,418 @@ const CaseDetail = () => {
             Case history
           </div>
           <div className="history-wrapper">
-            {casee?.case_status_users?.map((cas) => (currentUser?.role_name == 'client' || currentUser?.role_name == 'sub_client') ? <div className="single-case">
-              {(cas?.case_status != 2 && cas?.case_status != 6 && cas?.case_status != 3) &&
-                <div className="image">
-                  <BsTags />
-                </div>}
-              {(cas?.case_status != 2 && cas?.case_status != 6 && cas?.case_status != 3) && <div>  <div className="header">
-                <div className="tit">
-                  {cas?.case_status == '1' ? 'New Case' : cas?.case_status == '2' ? "In Planning" : cas?.case_status == '3' ? "Ready for QA" : cas?.case_status == '4' ? "Need More Info" : cas?.case_status == '5' ? "Case updated by ortho" : cas?.case_status == '6' ? "Rejected By QA" : cas?.case_status == '7' ? "Pending Ortho Check" : cas?.case_status == '8' ? "Need Modifications" : cas?.case_status == '9' ? "Pending Step Files" : cas?.case_status == '10' ? "Pending Container files" : cas?.case_status == '11' ? "Stl files ready" : cas?.case_status == '12' ? "Container files ready" : cas?.case_status == '13' ? "Need Stl File Modifications" : cas?.case_status == '14' ? "Need Container File Modifications" : cas?.case_status == '15' ? "Pending direct printing files" : cas?.case_status == '16' ? 'Direct printing files ready' : cas?.case_status == '17' ? 'Need direct printing files Modifications' : cas?.case_status == '18' ? 'Case completed' : ''}
+            {
+              casee?.case_status_users?.map((cas) => (currentUser?.role_name == 'client' || currentUser?.role_name == 'sub_client') ? 
 
-                </div>
-                <div className="sub_header">
-                  <div className="inner">
-                    <span className="label">Name:</span>
-                    <span className="value">({cas.user_detail?.first_name} {cas.user_detail?.first_name})</span>
+                <div className="single-case">
+                  {
+                    (cas?.case_status != 2 && cas?.case_status != 6 && cas?.case_status != 3) &&
+                    <div className="image">
+                      <BsTags />
+                    </div>
+                  }
+
+                  {
+                    (cas?.case_status != 2 && cas?.case_status != 6 && cas?.case_status != 3) && 
+                    <div> 
+                      <div className="header">
+                        <div className="tit">
+                          {cas?.case_status == '1' ? 'New Case' : cas?.case_status == '2' ? "In Planning" : cas?.case_status == '3' ? "Ready for QA" : cas?.case_status == '4' ? "Need More Info" : cas?.case_status == '5' ? "Case updated by ortho" : cas?.case_status == '6' ? "Rejected By QA" : cas?.case_status == '7' ? "Pending Ortho Check" : cas?.case_status == '8' ? "Need Modifications" : cas?.case_status == '9' ? "Pending Step Files" : cas?.case_status == '10' ? "Pending Container files" : cas?.case_status == '11' ? "Stl files ready" : cas?.case_status == '12' ? "Container files ready" : cas?.case_status == '13' ? "Need Stl File Modifications" : cas?.case_status == '14' ? "Need Container File Modifications" : cas?.case_status == '15' ? "Pending direct printing files" : cas?.case_status == '16' ? 'Direct printing files ready' : cas?.case_status == '17' ? 'Need direct printing files Modifications' : cas?.case_status == '18' ? 'Case completed' : ''}
+                        </div>
+                        <div className="sub_header">
+                          <div className="inner">
+                            <span className="label">Name:</span>
+                            <span className="value">({cas.user_detail?.first_name} {cas.user_detail?.first_name})</span>
+                          </div>
+                          <div className="inner">
+                            <span className="label">Role:</span>
+                            <span className="value">({formatString(cas.user_detail?.role_name)})</span>
+                          </div>
+                        </div>
+                        <div className="date">
+                          {moment(cas.created_at).format('ddd, MMM DD YYYY')} :  {moment(cas.created_at).format('HH:mm:ss')}
+                        </div>
+                      </div>
+                    </div>
+                  }
+
+                  <div className="bodyy">
+
+                    <div className="profile mb-3">
+
+                      {
+                        (cas?.case_status != 2 && cas?.case_status != 6 && cas?.case_status != 3) && 
+                        <img src={`${api_url}/uploads/${cas?.user_detail?.profile_pic}`} />
+                      }
+
+                      <div className="textt">
+                        {
+                          cas?.case_status == '1' ? 
+                          <div className="info">
+                            Case is created by 
+                            <span className="userr">
+                              {cas?.user_detail?.first_name} {cas?.user_detail?.last_name} 
+                            </span>
+                          </div> : 
+
+                          cas?.case_status == '4' ? 
+                          <div className="info">
+                            <span className="userr"> 
+                              {casee?.planner?.first_name} {casee?.planner?.lastt_name} 
+                            </span> 
+                            Holds case
+                            {
+                              cas?.cases_status_users_comments?.map((comnt) => 
+                                <div className="comment">
+                                  <div className="top">
+                                    <div className="icon">
+                                      <AiOutlineComment />  
+                                    </div>
+                                    <div className="date">
+                                      {moment(comnt.created_at).format('ddd, MMM DD YYYY')} : {moment(comnt.created_at).format('HH:mm:ss')}
+                                    </div>
+                                  </div>
+                                  <div className="custom-text comment-body" dangerouslySetInnerHTML={{__html: comnt?.comments,}}></div>
+                                </div>
+                              )
+                            }
+                          </div> : 
+
+                          cas?.case_status == '5' ? 
+                          <div className="info">
+                            <span className="userr">
+                              {casee?.created_user?.first_name} {casee?.created_user?.last_name}
+                            </span> 
+                            Updated the case
+                            {
+                              cas?.cases_status_users_comments?.map((comnt) => 
+                                <div className="comment">
+                                  <div className="top">
+                                    <div className="icon">
+                                      <AiOutlineComment />  
+                                    </div>
+                                    <div className="date">
+                                      {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
+                                    </div>
+                                  </div>
+                                  <div className="custom-text comment-body" dangerouslySetInnerHTML={{html: comnt?.comments,}}></div>
+                                </div>
+                              )
+                            }
+                          </div> : 
+
+                          cas?.case_status == '7' ? 
+                          <div className="info">
+                            <span className="userr">
+                              {casee?.qa?.first_name} {casee?.qa?.last_name}
+                            </span> 
+                            Submitted case for ortho check
+                            {
+                              cas?.cases_status_users_comments?.map((comnt) => 
+                                <div className="comment">
+                                  <div className="top">
+                                    <div className="icon">
+                                      <AiOutlineComment />  
+                                    </div>
+                                    <div className="date">
+                                      {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
+                                    </div>
+                                  </div>
+                                  <div className="custom-text comment-body" dangerouslySetInnerHTML={{__html: comnt?.comments,}}></div>
+                                </div>
+                              )
+                            }
+                          </div> : 
+
+                          cas?.case_status == '8' ? 
+                          <div className="info">
+                            <span className="userr">
+                              {casee?.created_user?.first_name} {casee?.created_user?.last_name}
+                            </span> 
+                            Asked modifications
+                            {
+                              cas?.cases_status_users_comments?.map((comnt) => 
+                                <div className="comment">
+                                  <div className="top">
+                                    <div className="icon">
+                                      <AiOutlineComment />  
+                                    </div>
+                                    <div className="date">
+                                      {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
+                                    </div>
+                                  </div>
+                                  <div className="custom-text comment-body" dangerouslySetInnerHTML={{__html: comnt?.comments,}}></div>
+                                </div>
+                              )
+                            }
+                          </div> : 
+
+                          cas?.case_status == '9' ? 
+                          <div className="info">
+                            <span className="userr">
+                              {casee?.created_user?.first_name} {casee?.created_user?.last_name}
+                            </span> 
+                            Required stl files
+                            {
+                              cas?.cases_status_users_comments?.map((comnt) => 
+                                <div className="comment">
+                                  <div className="top">
+                                    <div className="icon">
+                                      <AiOutlineComment />  
+                                    </div>
+                                    <div className="date">
+                                      {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
+                                    </div>
+                                  </div>
+                                  <div className="custom-text comment-body" dangerouslySetInnerHTML={{__html: comnt?.comments,}}></div>
+                                </div>
+                              )
+                            }
+                          </div> : 
+
+                          cas?.case_status == '10' ? 
+                          <div className="info">
+                            <span className="userr">                    
+                              <span className="userr">{casee?.created_user?.first_name} {casee?.created_user?.last_name}</span> 
+                              Required container files
+                            </span> 
+                            Required container files
+                            {
+                              cas?.cases_status_users_comments?.map((comnt) => 
+                                <div className="comment">
+                                  <div className="top">
+                                    <div className="icon">
+                                      <AiOutlineComment />  
+                                    </div>
+                                    <div className="date">
+                                      {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
+                                    </div>
+                                  </div>
+                                  <div className="custom-text comment-body" dangerouslySetInnerHTML={{__html: comnt?.comments,}}></div>
+                                </div>
+                              )
+                            }
+                          </div> : 
+
+                          cas?.case_status == '11' ? 
+                          <div className="info">
+                            <span className="userr">
+                              {casee?.post_processing?.first_name} {casee?.post_processing?.last_name}
+                            </span> 
+                            Uploaded stl files
+                            {
+                              cas?.cases_status_users_comments?.map((comnt) => 
+                                <div className="comment">
+                                  <div className="top">
+                                    <div className="icon">
+                                      <AiOutlineComment />  
+                                    </div>
+                                    <div className="date">
+                                      {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
+                                    </div>
+                                  </div>
+                                  <div className="custom-text comment-body" dangerouslySetInnerHTML={{__html: comnt?.comments,}}></div>
+                                </div>
+                              )
+                            }
+                          </div> :
+
+                          cas?.case_status == '12' ? 
+                          <div className="info">
+                            <span className="userr">{casee?.post_processing?.first_name} {casee?.post_processing?.last}</span> 
+                            uploaded container files
+                            {
+                              cas?.cases_status_users_comments?.map((comnt) => 
+                                <div className="comment">
+                                  <div className="top">
+                                    <div className="icon">
+                                      <AiOutlineComment />  
+                                    </div>
+                                    <div className="date">
+                                      {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
+                                    </div>
+                                  </div>
+                                  <div className="custom-text comment-body" dangerouslySetInnerHTML={{__html: comnt?.comments,}}></div>
+                                </div>
+                              )
+                            }
+                          </div> : 
+
+                          cas?.case_status == '13' ? 
+                          <div className="info">
+                            <span className="userr">{casee?.created_user?.first_name} {casee?.created_user?.lastt_name}</span> 
+                            Need stl files modifications
+                            {
+                              cas?.cases_status_users_comments?.map((comnt) => 
+                                <div className="comment">
+                                  <div className="top">
+                                    <div className="icon">
+                                      <AiOutlineComment />  
+                                    </div>
+                                    <div className="date">
+                                      {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
+                                    </div>
+                                  </div>
+                                  <div className="custom-text comment-body" dangerouslySetInnerHTML={{__html: comnt?.comments,}}></div>
+                                </div>
+                              )
+                            }
+                          </div> : 
+
+                          cas?.case_status == '14' ? 
+                          <div className="info">
+                            <span className="userr">{casee?.created_user?.first_name} {casee?.created_user?.lastt_name}</span> 
+                            Need container files modifications
+                            {
+                              cas?.cases_status_users_comments?.map((comnt) => 
+                                <div className="comment">
+                                  <div className="top">
+                                    <div className="icon">
+                                      <AiOutlineComment />  
+                                    </div>
+                                    <div className="date">
+                                      {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
+                                    </div>
+                                  </div>
+                                  <div className="custom-text comment-body" dangerouslySetInnerHTML={{__html: comnt?.comments,}}></div>
+                                </div>
+                              )
+                          }
+                          </div> : 
+
+                          cas?.case_status == '15' ? 
+                          <div className="info">
+                            <span className="userr">{casee?.created_user?.first_name} {casee?.created_user?.lastt_name}</span> 
+                            Required direct printing files
+                            {
+                              cas?.cases_status_users_comments?.map((comnt) => 
+                                <div className="comment">
+                                  <div className="top">
+                                    <div className="icon">
+                                      <AiOutlineComment />  </div>
+                                    <div className="date">
+                                      {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
+                                    </div>
+                                  </div>
+                                  <div className="custom-text comment-body" dangerouslySetInnerHTML={{__html: comnt?.comments,}}></div>
+                                </div>
+                              )
+                            }
+                          </div> : 
+
+                          cas?.case_status == '16' ? 
+                          <div className="info">
+                            <span className="userr">{casee?.post_processing?.first_name} {casee?.post_processing?.last}</span> 
+                            Uploaded Direct Printing files
+                            {
+                              cas?.cases_status_users_comments?.map((comnt) => 
+                                <div className="comment">
+                                  <div className="top">
+                                    <div className="icon">
+                                      <AiOutlineComment />  
+                                    </div>
+                                    <div className="date">
+                                      {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
+                                    </div>
+                                  </div>
+                                  <div className="custom-text comment-body" dangerouslySetInnerHTML={{__html: comnt?.comments,}}></div>
+                                </div>
+                              )
+                            }
+                          </div> : 
+
+                          cas?.case_status == '17' ? 
+                          <div className="info">
+                            <span className="userr">{casee?.created_user?.first_name} {casee?.created_user?.lastt_name}</span> 
+                            Required Direct Printing files
+                            {
+                              cas?.cases_status_users_comments?.map((comnt) => 
+                                <div className="comment">
+                                  <div className="top">
+                                    <div className="icon">
+                                      <AiOutlineComment />  
+                                    </div>
+                                    <div className="date">
+                                      {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
+                                    </div>
+                                  </div>
+                                  <div className="custom-text comment-body" dangerouslySetInnerHTML={{__html: comnt?.comments,}}></div>
+                                </div>
+                              )
+                            }
+                          </div> : 
+
+                          cas?.case_status == '18' ? 
+                          <div className="info">
+                            <span className="userr">{casee?.created_user?.username}</span> 
+                            Marked case as completed
+                            {
+                              cas?.cases_status_users_comments?.map((comnt) => 
+                                <div className="comment">
+                                  <div className="top">
+                                    <div className="icon">
+                                      <AiOutlineComment />  
+                                    </div>
+                                    <div className="date">
+                                      {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
+                                    </div>
+                                  </div>
+                                  <div className="custom-text comment-body" dangerouslySetInnerHTML={{__html: comnt?.comments,}}></div>
+                                </div>
+                              )
+                            }
+                          </div> : 
+                          ""
+                        }
+                      </div>
+
+                    </div>
+
                   </div>
-                  <div className="inner">
-                    <span className="label">Role:</span>
-                    <span className="value">({formatString(cas.user_detail?.role_name)})</span>
+
+                </div> : 
+
+                <div className="single-case">
+                  <div className="image">
+                    <BsTags />
+                  </div>
+                  <div className="header">
+                    <div className="tit">{cas?.case_status == '1' ? 'New Case' : cas?.case_status == '2' ? "In Planning" : cas?.case_status == '3' ? "Ready for QA" : cas?.case_status == '4' ? "Need More Info" : cas?.case_status == '5' ? "Case updated by ortho" : cas?.case_status == '6' ? "Rejected By QA" : cas?.case_status == '7' ? "Pending Ortho Check" : cas?.case_status == '8' ? "Need Modifications" : cas?.case_status == '9' ? "Pending Step Files" : cas?.case_status == '10' ? "Pending Container files" : cas?.case_status == '11' ? "Stl files ready" : cas?.case_status == '12' ? "Container files ready" : cas?.case_status == '13' ? "Need Stl File Modifications" : cas?.case_status == '14' ? "Need Container File Modifications" : cas?.case_status == '15' ? "Pending direct printing files" : cas?.case_status == '16' ? 'Direct printing files ready' : cas?.case_status == '17' ? 'Need direct printing files Modifications' : cas?.case_status == '18' ? 'Case completed' : ''}
+                  </div>
+                  <div className="sub_header">
+                    <div className="inner">
+                      <span className="label">Name:</span>
+                      <span className="value">({cas.user_detail?.first_name} {cas.user_detail?.first_name})</span>
+                    </div>
+                    <div className="inner">
+                      <span className="label">Role:</span>
+                      <span className="value">({formatString(cas.user_detail?.role_name)})</span>
+                    </div>
+                    {
+                      cas.work_start_datetime && (currentUser?.role_name == 'super_admin' || currentUser?.role_name == 'case_submission' || currentUser?.role_name == 'quality_check') && (
+                      <div className="inner">
+                        <span className="label">Work Start:</span>
+                        <span className="value">
+                          {moment(cas.work_start_datetime).format('ddd, MMM DD YYYY')} : {moment(cas.work_start_datetime).format('HH:mm:ss')}
+                        </span>
+                      </div>    
+                      )
+                    }
+                    {
+                      cas.work_end_datetime && (currentUser?.role_name == 'super_admin' || currentUser?.role_name == 'case_submission' || currentUser?.role_name == 'quality_check') && (
+                      <div className="inner">
+                        <span className="label">Work Start:</span>
+                        <span className="value">
+                          {moment(cas.work_end_datetime).format('ddd, MMM DD YYYY')} : {moment(cas.work_end_datetime).format('HH:mm:ss')}
+                        </span>
+                      </div>    
+                      )
+                    }
+                  </div>
+                  <div className="date">
+                    {moment(cas.created_at).format('ddd, MMM DD YYYY')} :  {moment(cas.created_at).format('HH:mm:ss')}
                   </div>
                 </div>
-                <div className="date">
-                  {moment(cas.created_at).format('ddd, MMM DD YYYY')} :  {moment(cas.created_at).format('HH:mm:ss')}
-                </div>
-              </div>
-
-              </div>
-              }
-              <div className="bodyy">
-                <div className="profile mb-3">
-                  {(cas?.case_status != 2 && cas?.case_status != 6 && cas?.case_status != 3) && <img src={`${api_url}/uploads/${cas?.user_detail?.profile_pic}`} />}
-
-                  <div className="textt">
-                    {cas?.case_status == '1' ? <div className="info">
-                      Case is created by <span className="userr">{cas?.user_detail?.first_name} {cas?.user_detail?.last_name} </span>
-                    </div> : cas?.case_status == '4' ? <div className="info">
-                      <span className="userr"> {casee?.planner?.first_name} {casee?.planner?.lastt_name} </span> Holds case
-                      {cas?.cases_status_users_comments?.map((comnt) => <div className="comment">
-                        <div className="top">
-                          <div className="icon">
-                            <AiOutlineComment />  </div>
-                          <div className="date">
-                            {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
-                          </div>
-                        </div>
-
-
-                        <div className="custom-text comment-body" dangerouslySetInnerHTML={{
-                          __html: comnt?.comments,
-                        }}></div>
-
-                      </div>)}
-                    </div> : cas?.case_status == '5' ? <div className="info">
-                      <span className="userr">{casee?.created_user?.first_name} {casee?.created_user?.last_name}</span> Updated the case
-                      {cas?.cases_status_users_comments?.map((comnt) => <div className="comment">
-                        <div className="top">
-                          <div className="icon">
-                            <AiOutlineComment />  </div>
-                          <div className="date">
-                            {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
-                          </div>
-                        </div>
-
-
-                        <div className="custom-text comment-body" dangerouslySetInnerHTML={{
-                          __html: comnt?.comments,
-                        }}></div>
-
-                      </div>)}
-                    </div> : cas?.case_status == '7' ? <div className="info">
-                      <span className="userr">{casee?.qa?.first_name} {casee?.qa?.last_name}</span> Submitted case for ortho check
-                      {cas?.cases_status_users_comments?.map((comnt) => <div className="comment">
-                        <div className="top">
-                          <div className="icon">
-                            <AiOutlineComment />  </div>
-                          <div className="date">
-                            {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
-                          </div>
-                        </div>
-
-
-                        <div className="custom-text comment-body" dangerouslySetInnerHTML={{
-                          __html: comnt?.comments,
-                        }}></div>
-
-                      </div>)}
-                    </div> : cas?.case_status == '8' ? <div className="info">
-                      <span className="userr">{casee?.created_user?.first_name} {casee?.created_user?.last_name}</span> Asked modifications
-                      {cas?.cases_status_users_comments?.map((comnt) => <div className="comment">
-                        <div className="top">
-                          <div className="icon">
-                            <AiOutlineComment />  </div>
-                          <div className="date">
-                            {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
-                          </div>
-                        </div>
-
-
-                        <div className="custom-text comment-body" dangerouslySetInnerHTML={{
-                          __html: comnt?.comments,
-                        }}></div>
-
-                      </div>)}
-                    </div> : cas?.case_status == '9' ? <div className="info">
-                      <span className="userr">{casee?.created_user?.first_name} {casee?.created_user?.last_name}</span> Required stl files
-                      {cas?.cases_status_users_comments?.map((comnt) => <div className="comment">
-                        <div className="top">
-                          <div className="icon">
-                            <AiOutlineComment />  </div>
-                          <div className="date">
-                            {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
-                          </div>
-                        </div>
-
-
-                        <div className="custom-text comment-body" dangerouslySetInnerHTML={{
-                          __html: comnt?.comments,
-                        }}></div>
-
-                      </div>)}
-                    </div> : cas?.case_status == '10' ? <div className="info">
-                      <span className="userr">                    <span className="userr">{casee?.created_user?.first_name} {casee?.created_user?.last_name}</span> Required container files
-                      </span> Required container files
-                      {cas?.cases_status_users_comments?.map((comnt) => <div className="comment">
-                        <div className="top">
-                          <div className="icon">
-                            <AiOutlineComment />  </div>
-                          <div className="date">
-                            {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
-                          </div>
-                        </div>
-
-
-                        <div className="custom-text comment-body" dangerouslySetInnerHTML={{
-                          __html: comnt?.comments,
-                        }}></div>
-
-                      </div>)}
-                    </div> : cas?.case_status == '11' ? <div className="info">
-                      <span className="userr">{casee?.post_processing?.first_name} {casee?.post_processing?.last_name}</span> uploaded stl files
-                      {cas?.cases_status_users_comments?.map((comnt) => <div className="comment">
-                        <div className="top">
-                          <div className="icon">
-                            <AiOutlineComment />  </div>
-                          <div className="date">
-                            {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
-                          </div>
-                        </div>
-
-
-                        <div className="custom-text comment-body" dangerouslySetInnerHTML={{
-                          __html: comnt?.comments,
-                        }}></div>
-
-                      </div>)}
-                    </div> : cas?.case_status == '12' ? <div className="info">
-                      <span className="userr">{casee?.post_processing?.first_name} {casee?.post_processing?.last}</span> uploaded container files
-                      {cas?.cases_status_users_comments?.map((comnt) => <div className="comment">
-                        <div className="top">
-                          <div className="icon">
-                            <AiOutlineComment />  </div>
-                          <div className="date">
-                            {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
-                          </div>
-                        </div>
-
-
-                        <div className="custom-text comment-body" dangerouslySetInnerHTML={{
-                          __html: comnt?.comments,
-                        }}></div>
-
-                      </div>)}
-                    </div> : cas?.case_status == '13' ? <div className="info">
-                      <span className="userr">{casee?.created_user?.first_name} {casee?.created_user?.lastt_name}</span> Need stl files modifications
-                      {cas?.cases_status_users_comments?.map((comnt) => <div className="comment">
-                        <div className="top">
-                          <div className="icon">
-                            <AiOutlineComment />  </div>
-                          <div className="date">
-                            {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
-                          </div>
-                        </div>
-
-
-                        <div className="custom-text comment-body" dangerouslySetInnerHTML={{
-                          __html: comnt?.comments,
-                        }}></div>
-
-                      </div>)}
-                    </div> : cas?.case_status == '14' ? <div className="info">
-                      <span className="userr">{casee?.created_user?.first_name} {casee?.created_user?.lastt_name}</span> Need container files modifications
-                      {cas?.cases_status_users_comments?.map((comnt) => <div className="comment">
-                        <div className="top">
-                          <div className="icon">
-                            <AiOutlineComment />  </div>
-                          <div className="date">
-                            {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
-                          </div>
-                        </div>
-
-
-                        <div className="custom-text comment-body" dangerouslySetInnerHTML={{
-                          __html: comnt?.comments,
-                        }}></div>
-
-                      </div>)}
-                    </div> : cas?.case_status == '15' ? <div className="info">
-                      <span className="userr">{casee?.created_user?.first_name} {casee?.created_user?.lastt_name}</span> Required direct printing files
-                      {cas?.cases_status_users_comments?.map((comnt) => <div className="comment">
-                        <div className="top">
-                          <div className="icon">
-                            <AiOutlineComment />  </div>
-                          <div className="date">
-                            {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
-                          </div>
-                        </div>
-
-
-                        <div className="custom-text comment-body" dangerouslySetInnerHTML={{
-                          __html: comnt?.comments,
-                        }}></div>
-
-                      </div>)}
-                    </div> : cas?.case_status == '16' ? <div className="info">
-                      <span className="userr">{casee?.post_processing?.first_name} {casee?.post_processing?.last}</span> Uploaded Direct Printing files
-                      {cas?.cases_status_users_comments?.map((comnt) => <div className="comment">
-                        <div className="top">
-                          <div className="icon">
-                            <AiOutlineComment />  </div>
-                          <div className="date">
-                            {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
-                          </div>
-                        </div>
-
-
-                        <div className="custom-text comment-body" dangerouslySetInnerHTML={{
-                          __html: comnt?.comments,
-                        }}></div>
-
-                      </div>)}
-                    </div> : cas?.case_status == '17' ? <div className="info">
-                      <span className="userr">{casee?.created_user?.first_name} {casee?.created_user?.lastt_name}</span> Required Direct Printing files
-                      {cas?.cases_status_users_comments?.map((comnt) => <div className="comment">
-                        <div className="top">
-                          <div className="icon">
-                            <AiOutlineComment />  </div>
-                          <div className="date">
-                            {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
-                          </div>
-                        </div>
-
-
-                        <div className="custom-text comment-body" dangerouslySetInnerHTML={{
-                          __html: comnt?.comments,
-                        }}></div>
-
-                      </div>)}
-                    </div> : cas?.case_status == '18' ? <div className="info">
-                      <span className="userr">{casee?.created_user?.username}</span> Marked case as completed
-                      {cas?.cases_status_users_comments?.map((comnt) => <div className="comment">
-                        <div className="top">
-                          <div className="icon">
-                            <AiOutlineComment />  </div>
-                          <div className="date">
-                            {moment(comnt.created_at).format('ddd, MMM DD YYYY')} :  {moment(comnt.created_at).format('HH:mm:ss')}
-                          </div>
-                        </div>
-
-
-                        <div className="custom-text comment-body" dangerouslySetInnerHTML={{
-                          __html: comnt?.comments,
-                        }}></div>
-
-                      </div>)}
-                    </div> : ""}
-                  </div>
-                </div>
-
-
-              </div>
-            </div> : <div className="single-case">
-              <div className="image">
-                <BsTags />
-              </div>
-              <div className="header">
-                <div className="tit">
-
-
-                  {cas?.case_status == '1' ? 'New Case' : cas?.case_status == '2' ? "In Planning" : cas?.case_status == '3' ? "Ready for QA" : cas?.case_status == '4' ? "Need More Info" : cas?.case_status == '5' ? "Case updated by ortho" : cas?.case_status == '6' ? "Rejected By QA" : cas?.case_status == '7' ? "Pending Ortho Check" : cas?.case_status == '8' ? "Need Modifications" : cas?.case_status == '9' ? "Pending Step Files" : cas?.case_status == '10' ? "Pending Container files" : cas?.case_status == '11' ? "Stl files ready" : cas?.case_status == '12' ? "Container files ready" : cas?.case_status == '13' ? "Need Stl File Modifications" : cas?.case_status == '14' ? "Need Container File Modifications" : cas?.case_status == '15' ? "Pending direct printing files" : cas?.case_status == '16' ? 'Direct printing files ready' : cas?.case_status == '17' ? 'Need direct printing files Modifications' : cas?.case_status == '18' ? 'Case completed' : ''}
-                </div>
-                <div className="sub_header">
-                  <div className="inner">
-                    <span className="label">Name:</span>
-                    <span className="value">({cas.user_detail?.first_name} {cas.user_detail?.first_name})</span>
-                  </div>
-                  <div className="inner">
-                    <span className="label">Role:</span>
-                    <span className="value">({formatString(cas.user_detail?.role_name)})</span>
-                  </div>
-                </div>
-                <div className="date">
-                  {moment(cas.created_at).format('ddd, MMM DD YYYY')} :  {moment(cas.created_at).format('HH:mm:ss')}
-                </div>
-
-              </div>
 
               <div className="bodyy">
                 <div className="profile mb-3">
@@ -1410,7 +1518,10 @@ const CaseDetail = () => {
                   </div>
                 </div>
               </div>
-            </div>)}
+                </div>
+
+              )
+            }
           </div>
         </div>
       </div>
