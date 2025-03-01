@@ -30,6 +30,8 @@ const ExternalCases = () => {
 
         const transformedCases = result?.data?.data?.map(cases => ({
           id: cases.id,
+          case_id: cases.case_id,
+          name: cases.name,
           guid: cases.guid,
           status: cases.status,
           client: `${cases?.client?.first_name? cases?.client?.first_name : ""} ${cases?.client?.last_name? cases?.client?.last_name : ""}`,
@@ -109,7 +111,13 @@ const ExternalCases = () => {
   const columns = [
     {
       name: 'Case ID',
-      selector: row => row.id,
+      selector: row => row.case_id,
+      sortable: true,
+    },
+
+    {
+      name: 'Patient Name',
+      selector: row => row.name,
       sortable: true,
     },
 
@@ -170,7 +178,7 @@ const ExternalCases = () => {
   return (
     <div className='users-wrapper'>
       {loading && <div className="loader-parent"><div className="_loader"></div></div>}
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       {permissions?.includes("external-cases-store") && <div className="d-flex justify-content-end mb-3">
         <Link to={'/create-external-case'} className="button">Create New Case </Link>
       </div>}

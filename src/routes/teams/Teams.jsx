@@ -152,7 +152,7 @@ const  Teams = () => {
   return (
     <div className='users-wrapper'>
       {loading && <div className="loader-parent"><div className="_loader"></div></div>}
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       {permissions?.includes("teams-store") &&    <div className="d-flex justify-content-end mb-3">
         <Link to={'/create-team'} className="button">Create New Team </Link> 
       </div>}

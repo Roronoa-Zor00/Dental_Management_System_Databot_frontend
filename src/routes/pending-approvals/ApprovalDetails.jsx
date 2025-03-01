@@ -56,7 +56,7 @@ const url ="https://file-examples.com/wp-content/storage/2017/10/file-sample_150
           <div className="_loader"></div>
         </div>
       )}
-      <ToastContainer />
+      {/* <ToastContainer /> */}
 
       <div className="user-details">
         <div className="row">

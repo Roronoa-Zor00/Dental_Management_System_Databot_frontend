@@ -145,7 +145,7 @@ const  Permissions = () => {
   return (
     <div className='users-wrapper'>
       {loading && <div className="loader-parent"><div className="_loader"></div></div>}
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <div className="d-flex justify-content-end mb-3">
       {permissions?.includes("permissions-store") &&   <Link to={'/add-permission'} className="button">Create New Permission </Link> }
       </div>

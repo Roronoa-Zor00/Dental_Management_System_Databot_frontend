@@ -363,6 +363,9 @@ const ChangeStatus = ({ id }) => {
         setLoading(false);
       }
     }
+
+    navigate(0);
+    
   };
 
   //upload stle files
@@ -570,7 +573,7 @@ const ChangeStatus = ({ id }) => {
   };
   return (
     <div className="users-wrapper patinet-info">
-      <ToastContainer />
+      {/* <ToastContainer /> */}
 
       {ploading && <div className="loader-parent">
 
@@ -640,6 +643,7 @@ const ChangeStatus = ({ id }) => {
                         className="input"
                         value={caseStatus}
                         onChange={(e) => setCaseStatus(e.target.value)}
+                        disabled={workEndDatetime? false : true}
                       >
                         <option value="">Select</option>
                         {(permissions?.includes("upload-stl-file") && (casee?.status == '9' || casee?.status == "13")) && (
@@ -689,6 +693,7 @@ const ChangeStatus = ({ id }) => {
                   className="input"
                   value={caseStatus}
                   onChange={(e) => setCaseStatus(e.target.value)}
+                  disabled={workEndDatetime? false : true}
                 >
                   <option value="">Select</option>
                   {(casee?.status != "3" && casee?.status != "4" && casee?.status != '18') &&

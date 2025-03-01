@@ -119,7 +119,7 @@ const MySmartAlign = () => {
            
         </video>
       <div className='form-wrapper'>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
      
       
       <div className="left-section">

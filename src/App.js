@@ -3,6 +3,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import './App.css';
 import ResetPassword from "./routes/reset-password/ResetPassword";
 import Layout from "./routes/layout/Layout";
@@ -321,7 +322,12 @@ function App() {
 
   return (
 
-    <RouterProvider router={router} />
+    <>
+      <ToastContainer />
+      <RouterProvider router={router} />
+    </>
+
+
   );
 }
 

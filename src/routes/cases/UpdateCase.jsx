@@ -345,7 +345,7 @@ const UpdateCase = () => {
   };
   return (
     <div className="form-wrapper">
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       {loading && (
         <div className="loader-parent">
           <div className="porgress-bar-custom-container">

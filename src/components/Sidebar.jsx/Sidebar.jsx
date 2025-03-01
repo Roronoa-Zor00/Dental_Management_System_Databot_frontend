@@ -257,7 +257,7 @@ const Sidebar = () => {
   const api_url = process.env.REACT_APP_API_URL
   return (
     <div className='side-bar'>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       {loading && <div className="loader-parent"><div className="_loader"></div></div>}
       {modal && <div className='modal-main'>
         <div className="modal-wrapper change-pass">

@@ -20,6 +20,8 @@ const UpdateExternalCase = () => {
     const [status, setStatus] = useState(false);
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedDateStr, setSelectedDateStr] = useState(null);
+    const [caseId, setCaseId] = useState(null);
+    const [name, setName] = useState(null);
 
     const navigate = useNavigate()
 
@@ -100,6 +102,7 @@ const UpdateExternalCase = () => {
 
     const getAllClients = async () => {
 
+        setLoading(true);
         try {
             var clients = await AuthService.getAllUsers();
             if (clients?.data?.status == 200) {
@@ -122,12 +125,13 @@ const UpdateExternalCase = () => {
             });
         }
 
-
+        setLoading(false);
 
     }
 
     const getAllSoftwares = async () => {
 
+        setLoading(true);
         try {
             var softwares = await SoftwareService.getSoftwares();
             if (softwares?.data?.status == 200) {
@@ -149,6 +153,7 @@ const UpdateExternalCase = () => {
 
             });
         }
+        setLoading(false);
     }
 
     const handleDateChange = (date) => {
@@ -156,37 +161,47 @@ const UpdateExternalCase = () => {
         setSelectedDateStr(format(date, "yyyy-MM-dd HH:mm:ss"));
     };
 
-    const getCaseDetail = async ( id ) => {
+    const getCaseDetail = async (id) => {
+        setLoading(true);
         var casedetai = await ExternalPatientCaseService.getCaseDetail(id);
 
         if (casedetai?.data?.status == 200) {
 
-            if(casedetai?.data?.data?.client_id){
+            if (casedetai?.data?.data?.name) {
+                setName(casedetai?.data?.data?.name);
+            }
+
+            if (casedetai?.data?.data?.case_id) {
+                setCaseId(casedetai?.data?.data?.case_id);
+            }
+
+            if (casedetai?.data?.data?.client_id) {
                 setClient(casedetai?.data?.data?.client_id);
             }
-            
-            if(casedetai?.data?.data?.client_id){
+
+            if (casedetai?.data?.data?.client_id) {
                 setSoftware(casedetai?.data?.data?.software_id);
             }
 
-            if(casedetai?.data?.data?.status){
+            if (casedetai?.data?.data?.status) {
                 setStatus(casedetai?.data?.data?.status);
             }
 
-            if(casedetai?.data?.data?.case_datetime){
+            if (casedetai?.data?.data?.case_datetime) {
                 setSelectedDate(casedetai?.data?.data?.case_datetime);
                 setSelectedDateStr(format(casedetai?.data?.data?.case_datetime, "yyyy-MM-dd HH:mm:ss"));
             }
-            
+
         }
         else {
-            toast.error(casedetai?.data?.message? casedetai?.data?.message : "Unable to get case detail!", {
+            toast.error(casedetai?.data?.message ? casedetai?.data?.message : "Unable to get case detail!", {
                 autoClose: 2000,
                 pauseOnHover: true,
                 draggable: true,
 
             });
         }
+        setLoading(false);
 
     };
 
@@ -202,10 +217,9 @@ const UpdateExternalCase = () => {
         getCaseDetail(id);
     }, []);
 
-
-
     const UpdateCaseApi = async () => {
 
+        setLoading(true);
 
         try {
             const formData = new FormData()
@@ -216,6 +230,7 @@ const UpdateExternalCase = () => {
                     draggable: true,
 
                 });
+                setLoading(false);
             } else if (!software) {
                 toast.error("Please select software!", {
                     autoClose: 2000,
@@ -223,6 +238,7 @@ const UpdateExternalCase = () => {
                     draggable: true,
 
                 });
+                setLoading(false);
             } else if (!status) {
                 toast.error("Please select status!", {
                     autoClose: 2000,
@@ -230,6 +246,7 @@ const UpdateExternalCase = () => {
                     draggable: true,
 
                 });
+                setLoading(false);
             } else if (!selectedDateStr) {
                 toast.error("Please select date!", {
                     autoClose: 2000,
@@ -237,6 +254,23 @@ const UpdateExternalCase = () => {
                     draggable: true,
 
                 });
+                setLoading(false);
+            } else if (!caseId) {
+                toast.error("Please input Case ID!", {
+                    autoClose: 2000,
+                    pauseOnHover: true,
+                    draggable: true,
+
+                });
+                setLoading(false);
+            } else if (!name) {
+                toast.error("Please input Patient Name!", {
+                    autoClose: 2000,
+                    pauseOnHover: true,
+                    draggable: true,
+
+                });
+                setLoading(false);
             }
             else {
                 setLoading(true)
@@ -244,9 +278,10 @@ const UpdateExternalCase = () => {
                 formData.append('software_id', software);
                 formData.append('status', status);
                 formData.append('case_datetime', selectedDateStr);
-                console.log(formData)
+                formData.append('name', name);
+                formData.append('case_id', caseId);
 
-                const result = await ExternalPatientCaseService.updateCase(id,formData);
+                const result = await ExternalPatientCaseService.updateCase(id, formData);
                 if (result?.data?.status == 200) {
                     toast.success(result?.data?.message, {
                         autoClose: 1000,
@@ -254,12 +289,14 @@ const UpdateExternalCase = () => {
                         draggable: true,
 
                     });
+                    setLoading(false);
                     setTimeout(() => {
                         navigate('/external-cases')
                     }, 1300)
 
                 }
                 else {
+                    setLoading(false);
                     toast.error(result?.data?.message, {
                         autoClose: 2000,
                         pauseOnHover: true,
@@ -271,30 +308,35 @@ const UpdateExternalCase = () => {
             }
 
         } catch (error) {
+            setLoading(false);
             toast.error(error?.result?.data?.errors[0], {
                 autoClose: 2000,
                 pauseOnHover: true,
                 draggable: true,
 
             });
-
-
         }
         finally {
             setLoading(false)
         }
     };
 
-
-
     return (
         <div className='form-wrapper'>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
             {loading && <div className="loader-parent"><div className="_loader"></div></div>}
             <div className="title">
                 Update Case
             </div>
             <div className="row">
+                <div className="col-12 col-md-6 mb-4">
+                    <label htmlFor="">Case ID</label>
+                    <input type="text" className="input" value={caseId} onChange={(e) => setCaseId(e.target.value)}/>
+                </div>
+                <div className="col-12 col-md-6 mb-4">
+                    <label htmlFor="">Patient Name</label>
+                    <input type="text" className="input" value={name} onChange={(e) => setName(e.target.value)}/>
+                </div>
                 <div className="col-12 col-md-6 mb-4">
                     <label htmlFor="">Client</label>
                     <select className="input" value={client} onChange={(e) => setClient(e.target.value)}>
@@ -319,11 +361,11 @@ const UpdateExternalCase = () => {
                 <div className="col-12 col-md-6 mb-4">
                     <label htmlFor="">Case Datetime</label>
                     <DatePicker
-                        selected={typeof(selectedDate) == 'string' ? new Date(selectedDate): selectedDate}
+                        selected={typeof (selectedDate) == 'string' ? new Date(selectedDate) : selectedDate}
                         onChange={handleDateChange}
                         showTimeSelect
                         timeFormat="HH:mm"
-                        timeIntervals={5}
+                        timeIntervals={1}
                         dateFormat="yyyy-MM-dd HH:mm:ss"
                         className="border p-2 rounded"
                     />

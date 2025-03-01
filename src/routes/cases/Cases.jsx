@@ -407,7 +407,7 @@ const Cases = () => {
       {loading && <div className="loader-parent"><div className="_loader">
 
       </div></div>}
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <div className="search-filer-wrapper">
 
         <div className="row">

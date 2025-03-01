@@ -139,7 +139,7 @@ const getAllCases = async () => {
   };
   return (
     <div className='form-wrapper'>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       {loading && <div className="loader-parent"><div className="_loader"></div></div>}
       <div className="title">
         Pending Approval

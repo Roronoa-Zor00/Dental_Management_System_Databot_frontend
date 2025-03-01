@@ -67,7 +67,7 @@ const Dashboard = () => {
           <div className="_loader"></div>
         </div>
       )}
-      <ToastContainer />
+      {/* <ToastContainer /> */}
 
       <div className="small-boxes-wrapper">
         {/* =========== All cases ========= */}

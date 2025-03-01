@@ -18,6 +18,8 @@ const AddExternalCase = () => {
     const [status, setStatus] = useState(false);
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedDateStr, setSelectedDateStr] = useState(null);
+    const [caseId, setCaseId] = useState(null);
+    const [name, setName] = useState(null);
 
     const navigate = useNavigate()
 
@@ -98,6 +100,8 @@ const AddExternalCase = () => {
 
     const getAllClients = async () => {
 
+        setLoading(true);
+
         try {
             var clients = await AuthService.getAllUsers();
             if (clients?.data?.status == 200) {
@@ -120,11 +124,13 @@ const AddExternalCase = () => {
             });
         }
 
-
+        setLoading(false);
 
     }
 
     const getAllSoftwares = async () => {
+
+        setLoading(true);
 
         try {
             var softwares = await SoftwareService.getSoftwares();
@@ -147,6 +153,8 @@ const AddExternalCase = () => {
 
             });
         }
+
+        setLoading(false);
     }
 
     const handleDateChange = (date) => {
@@ -164,6 +172,7 @@ const AddExternalCase = () => {
 
     const createCaseApi = async () => {
 
+        setLoading(true);
 
         try {
             const formData = new FormData()
@@ -174,6 +183,7 @@ const AddExternalCase = () => {
                     draggable: true,
 
                 });
+                setLoading(false);
             } else if (!software) {
                 toast.error("Please select software!", {
                     autoClose: 2000,
@@ -181,6 +191,7 @@ const AddExternalCase = () => {
                     draggable: true,
 
                 });
+                setLoading(false);
             } else if (!status) {
                 toast.error("Please select status!", {
                     autoClose: 2000,
@@ -188,20 +199,37 @@ const AddExternalCase = () => {
                     draggable: true,
 
                 });
+                setLoading(false);
             } else if (!selectedDateStr) {
                 toast.error("Please select date!", {
                     autoClose: 2000,
                     pauseOnHover: true,
                     draggable: true,
+                });
+                setLoading(false);
+            } else if (!caseId) {
+                toast.error("Please input Case ID!", {
+                    autoClose: 2000,
+                    pauseOnHover: true,
+                    draggable: true,
 
                 });
+                setLoading(false);
+            } else if (!name) {
+                toast.error("Please input Patient Name!", {
+                    autoClose: 2000,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
+                setLoading(false);
             }
             else {
-                setLoading(true)
                 formData.append('client_id', client);
                 formData.append('software_id', software);
                 formData.append('status', status);
                 formData.append('case_datetime', selectedDateStr);
+                formData.append('name', name);
+                formData.append('case_id', caseId);
 
                 const result = await ExternalPatientCaseService.createCase(formData);
                 if (result?.data?.status == 200) {
@@ -211,6 +239,7 @@ const AddExternalCase = () => {
                         draggable: true,
 
                     });
+                    setLoading(false);
                     setTimeout(() => {
                         navigate('/external-cases')
                     }, 1300)
@@ -223,6 +252,7 @@ const AddExternalCase = () => {
                         draggable: true,
 
                     });
+                    setLoading(false);
                 }
 
             }
@@ -234,7 +264,7 @@ const AddExternalCase = () => {
                 draggable: true,
 
             });
-
+            setLoading(false);
 
         }
         finally {
@@ -244,12 +274,20 @@ const AddExternalCase = () => {
 
     return (
         <div className='form-wrapper'>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
             {loading && <div className="loader-parent"><div className="_loader"></div></div>}
             <div className="title">
                 Create Case
             </div>
             <div className="row">
+                <div className="col-12 col-md-6 mb-4">
+                    <label htmlFor="">Case ID</label>
+                    <input type="text" className="input" value={caseId} onChange={(e) => setCaseId(e.target.value)} />
+                </div>
+                <div className="col-12 col-md-6 mb-4">
+                    <label htmlFor="">Patient Name</label>
+                    <input type="text" className="input" value={name} onChange={(e) => setName(e.target.value)} />
+                </div>
                 <div className="col-12 col-md-6 mb-4">
                     <label htmlFor="">Client</label>
                     <select className="input" value={client} onChange={(e) => setClient(e.target.value)}>
@@ -278,7 +316,7 @@ const AddExternalCase = () => {
                         onChange={handleDateChange}
                         showTimeSelect
                         timeFormat="HH:mm"
-                        timeIntervals={5}
+                        timeIntervals={1}
                         dateFormat="yyyy-MM-dd HH:mm:ss"
                         className="border p-2 rounded"
                     />

@@ -154,7 +154,7 @@ const PendingApprovals = () => {
   return (
     <div className='users-wrapper'>
       {loading && <div className="loader-parent"><div className="_loader"></div></div>}
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <div className="d-flex justify-content-end mb-3">
         <Link to={'/create-approval'} className="button">Create New Approval </Link> 
       </div>

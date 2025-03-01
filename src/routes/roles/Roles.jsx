@@ -144,7 +144,7 @@ const Roles = () => {
   return (
     <div className='users-wrapper'>
       {loading && <div className="loader-parent"><div className="_loader"></div></div>}
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <div className="d-flex justify-content-end mb-3">
       {permissions?.includes("roles-store") && <Link to={'/add-role'} className="button">Create New Role </Link> }
       </div>

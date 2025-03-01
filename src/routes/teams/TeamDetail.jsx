@@ -353,7 +353,7 @@ const api_url = process.env.REACT_APP_API_URL
   return (
     <div className='users-wrapper'>
       {loading && <div className="loader-parent"><div className="_loader"></div></div>}
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       {modal && <div className='modal-main'>
         <div className="modal-wrapper change-pass">
         <div className="close" onClick={()=>setModal(false)}>

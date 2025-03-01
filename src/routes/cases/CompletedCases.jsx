@@ -205,7 +205,7 @@ const CompletedCases = () => {
       {loading && <div className="loader-parent"><div className="_loader">
         
         </div></div>}
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       
           <DataTable
 			columns={columns}

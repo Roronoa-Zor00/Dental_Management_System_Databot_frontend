@@ -186,7 +186,7 @@ const Users = () => {
   return (
     <div className='users-wrapper'>
       {loading && <div className="loader-parent"><div className="_loader"></div></div>}
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <div className="d-flex justify-content-between mb-3">
        <div className='d-flex gap-3'>
        <input type="text" placeholder='Search user by name or email' className="input search-input" value={search} onChange={(e)=>setSearch(e.target.value)} />
